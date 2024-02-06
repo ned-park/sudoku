@@ -4,6 +4,7 @@
   min-height: 100vh;
 }
 
+/* board styling */
 .board {
   display: grid;
   grid-template-columns: 1;
@@ -17,6 +18,10 @@
   height: 3rem;
   border: 1px solid black;
   text-align: center;
+}
+
+.wrong {
+  color: red;
 }
 
 .square:disabled {
