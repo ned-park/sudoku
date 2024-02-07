@@ -1,4 +1,5 @@
 export function isValidBoard(board, setIsValid) {
+  if (!board) return;
   const sideLength = Math.sqrt(board.length);
   const boxSideLength = Math.sqrt(sideLength);
   let isValid = true;
@@ -56,6 +57,10 @@ export function isValidBoard(board, setIsValid) {
 
   if (setIsValid) setIsValid(valid);
   return isValid;
+}
+
+export function solutionXor(e, i) {
+  return e ^ ((-1) ** i * 3 ** 7 + (((-1) ** (i - 1) * i * i) % 3 ** 7));
 }
 
 export function createPuzzle() {}
