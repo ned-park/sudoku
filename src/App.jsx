@@ -1,68 +1,9 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import Board from "./components/Board";
+import { isValidBoard } from "./utilities/board";
 
 function createPuzzle() {}
-
-function isValidBoard(board, isMutable, setIsValid) {
-  const sideLength = Math.sqrt(board.length);
-  const boxSideLength = Math.sqrt(sideLength);
-  let isValid = true;
-  let valid = new Array(81).fill(true);
-
-  let rowSeen;
-  let colSeen;
-  let boxSeen;
-
-  for (let m = 0; m < sideLength; m++) {
-    rowSeen = new Map();
-    colSeen = new Map();
-    boxSeen = new Map();
-
-    let boxNums = [];
-    for (let n = 0; n < sideLength; n++) {
-      // rows
-      if (board[m * sideLength + n] != 0) {
-        if (rowSeen.has(board[m * sideLength + n])) {
-          valid[rowSeen.get(board[m * sideLength + n])] = false;
-          valid[m * sideLength + n] = false;
-          isValid = false;
-        } else {
-          rowSeen.set(board[m * sideLength + n], m * sideLength + n);
-        }
-      }
-      // columns
-      if (board[n * sideLength + m] != 0) {
-        if (colSeen.has(board[n * sideLength + m])) {
-          valid[colSeen.get(board[n * sideLength + m])] = false;
-          valid[n * sideLength + m] = false;
-          isValid = false;
-        } else {
-          colSeen.set(board[n * sideLength + m], n * sideLength + m);
-        }
-      }
-      // boxes
-      let boxIdx =
-        Math.floor(m / boxSideLength) * sideLength * boxSideLength +
-        Math.floor(n / boxSideLength) * sideLength +
-        Math.floor(m % boxSideLength) * boxSideLength +
-        (n % 3);
-      boxNums.push(boxIdx);
-      if (board[boxIdx] != 0) {
-        if (boxSeen.has(board[boxIdx])) {
-          valid[boxSeen.get(board[boxIdx])] = false;
-          valid[boxIdx] = false;
-          isValid = false;
-        } else {
-          boxSeen.set(board[boxIdx], boxIdx);
-        }
-      }
-    }
-  }
-
-  setIsValid(valid);
-  return isValid;
-}
 
 function App() {
   const [board, setBoard] = useState(
@@ -84,19 +25,24 @@ function App() {
 
   useEffect(() => {
     createPuzzle(setSolution, setBoard, seIsMutable);
+    //retrieve from localstorage if existing
   }, []);
 
   useEffect(() => {
-    isValidBoard(board, isMutable, setIsValid);
+    isValidBoard(board, setIsValid);
   }, [board]);
 
   return (
     <>
+      <h1>Sudoku</h1>
       {board && (
         <section className="container">
           <Board board={board} setBoard={setBoard} isMutable={isMutable} isValid={isValid} />
         </section>
       )}
+      <h2>
+        <a href="https://github.com/ned-park/sudoku">By Ned</a>
+      </h2>
     </>
   );
 }
