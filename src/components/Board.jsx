@@ -1,8 +1,12 @@
-export default function Board({ board, setBoard, isMutable }) {
-  let tilesToDisplay = new Array(9).fill(0).map(() => new Array(9).fill(0));
+export default function Board({ board, setBoard, isMutable, isValid }) {
+  let tilesToDisplay = new Array(9).fill(0).map(() => new Array(9).fill(""));
   for (let i = 0; i < board.length; i += 9) {
     for (let j = 0; j < 9; j++) {
-      tilesToDisplay[i / 9][j] = [board[i + j], isMutable[i + j]];
+      tilesToDisplay[i / 9][j] = [
+        board[i + j] > 0 ? board[i + j] : "",
+        isMutable[i + j],
+        isValid[i + j],
+      ];
     }
   }
 
@@ -21,9 +25,9 @@ export default function Board({ board, setBoard, isMutable }) {
             <input
               id={`square-${9 * m + n}`}
               key={`square-${m}-${n}`}
-              className="square"
+              className={`square ${isValid[9 * m + n] ? "" : "wrong"}`}
               disabled={!col[1]}
-              placeholder={col[0]}
+              // placeholder={}
               value={col[0]}
               onChange={(e) => updateBoard(e)}
             />
