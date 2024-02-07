@@ -1,14 +1,45 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+}
+
+#title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid red;
+  padding: none;
+  margin: none;
+}
+
+h1 {
+  line-height: 0.8rem;
+  font-size: 2rem;
+}
+
+h2 {
+  line-height: 0.6rem;
+  font-size: 0.8rem;
+  text-align: right;
 }
 
 /* board styling */
 .board {
   display: grid;
-  grid-template-columns: 1;
-  align-self: center;
+  grid-template-columns: repeat(9, auto);
   border: 3px solid black;
   border-right: 1px solid black;
 }
@@ -16,6 +47,7 @@
 .square {
   width: 3rem;
   height: 3rem;
+  font-size: medium;
   border: 1px solid black;
   text-align: center;
 }
@@ -37,6 +69,6 @@
   border-right: 3px solid black;
 }
 
-.row:nth-child(3n+4) {
-  border-top: 3px solid black;
+.boxbottom {
+  border-bottom: 3px solid black;
 }
