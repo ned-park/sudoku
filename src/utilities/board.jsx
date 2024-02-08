@@ -64,7 +64,9 @@ export function solutionXor(e, i) {
 export function createPuzzle(setBoard, setSolution, setIsMutable) {
   const solution = new Array(81).fill(0);
   const seedRow = new Array(9).fill(0).map((_, i) => i + 1);
-  seedRow.sort(() => Math.random() - 0.5);
+  for (let i = 0; i < 20; i++) {
+    seedRow.sort(() => Math.random() - 0.5);
+  }
   for (let i = 0; i < seedRow.length; i++) solution[i] = seedRow[i];
 
   solveBoard(solution, 9);
