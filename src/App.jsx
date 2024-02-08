@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import Board from "./components/Board";
-import { isValidBoard, solutionXor } from "./utilities/board";
+import { isValidBoard, solutionXor, createPuzzle } from "./utilities/board";
 
-function createPuzzle(setBoard, setSolution, setIsMutable) {
-  setBoard("123456789456789123789123456234567891567891234891234567345678912678912345912345678".split("").map(Number));
-}
+// function createPuzzle(setBoard, setSolution, setIsMutable) {
+//   setBoard("123456789456789123789123456234567891567891234891234567345678912678912345912345678".split("").map(Number));
+// }
+
+// function solveBoard(board) {
+//   return true;
+// }
 
 function App() {
   const [board, setBoard] = useState();
@@ -16,26 +20,25 @@ function App() {
   //   arr[10] = 3;
   //   return arr;
   // })()
-  const [solution, setSolution] = useState(
-    // use solution for give up
-    new Array(81).fill(0).map((_, i) => i + 1)
-  );
+  const [solution, setSolution] = useState();
+  // use solution for give up
+  // new Array(81).fill(0).map((_, i) => i + 1)
   const [isMutable, setIsMutable] = useState(new Array(81).fill(true).map((_, i) => i % 3 != 0));
-  const [isValid, setIsValid] = useState(new Array(81).fill(true).map((_, i) => i % 3 == 2));
+  const [isValid, setIsValid] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    try {
-      const data = localStorage.getItem("sudoku");
-      const previousState = JSON.parse(data);
-      setSolution(previousState.solution.map((e, i) => solutionXor(e, i)));
-      setIsMutable(previousState.isMutable);
-      setBoard(previousState.board);
-    } catch {
-      createPuzzle(setBoard, setSolution, setIsMutable);
-    } finally {
-      setIsLoaded(true);
-    }
+    // try {
+    //   const data = localStorage.getItem("sudoku");
+    //   const previousState = JSON.parse(data);
+    //   setSolution(previousState.solution.map((e, i) => solutionXor(e, i)));
+    //   setIsMutable(previousState.isMutable);
+    //   setBoard(previousState.board);
+    // } catch {
+    createPuzzle(setBoard, setSolution, setIsMutable);
+    // } finally {
+    setIsLoaded(true);
+    // }
   }, []);
 
   useEffect(() => {
