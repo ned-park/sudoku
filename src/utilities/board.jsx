@@ -97,8 +97,8 @@ function solveBoard(board, idx) {
 }
 
 function hasNoConflicts(board, idx, i) {
-  const boxSideLength = Math.sqrt(sideLength);
   const sideLength = Math.sqrt(board.length);
+  const boxSideLength = Math.sqrt(sideLength);
   let r = Math.floor(idx / sideLength);
   let c = idx % sideLength;
   for (let j = 0; j < sideLength; j++) {
