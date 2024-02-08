@@ -97,10 +97,10 @@ function solveBoard(board, idx) {
 }
 
 function hasNoConflicts(board, idx, i) {
-  let r = Math.floor(idx / 9);
-  let c = idx % 9;
-  const sideLength = Math.sqrt(board.length);
   const boxSideLength = Math.sqrt(sideLength);
+  const sideLength = Math.sqrt(board.length);
+  let r = Math.floor(idx / sideLength);
+  let c = idx % sideLength;
   for (let j = 0; j < sideLength; j++) {
     let boxIdx =
       (boxSideLength * Math.floor(r / boxSideLength) + Math.floor(j / boxSideLength)) * sideLength +
