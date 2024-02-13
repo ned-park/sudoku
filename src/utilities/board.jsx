@@ -64,9 +64,7 @@ export function solutionXor(e, i) {
 export function createPuzzle(setBoard, setSolution, setIsMutable) {
   const solution = new Array(81).fill(0);
   const seedRow = new Array(9).fill(0).map((_, i) => i + 1);
-  for (let i = 0; i < 20; i++) {
-    seedRow.sort(() => Math.random() - 0.5);
-  }
+  randomize(seedRow);
   for (let i = 0; i < seedRow.length; i++) solution[i] = seedRow[i];
 
   solveBoard(solution, 9);
@@ -76,7 +74,33 @@ export function createPuzzle(setBoard, setSolution, setIsMutable) {
   console.log(solution);
 }
 
-function generateBoard(solution, setBoard, setIsMutable) {}
+function generateBoard(solvedBoard, setBoard, setIsMutable) {
+  let board = solvedBoard.concat();
+  let removed = [];
+  let numToRemove = Math.floor(Math.random() * 20) + 40;
+  let boardPositions = new Array(board.length).fill(0).map((_, i) => i);
+  randomize(boardPositions);
+  while (removed.length < numToRemove) {
+    let idx = boardPositions.pop();
+    if (idx === undefined) throw new Error("no go");
+
+    if (board[idx] == 0) continue;
+    removed.push({
+      idx,
+      val: board[idx],
+    });
+    board[idx] = 0;
+  }
+
+  setBoard(board);
+  setIsMutable(board.map((e) => e == 0));
+}
+
+function randomize(array) {
+  for (let i = 0; i < array.length * 2; i++) {
+    array.sort(() => Math.random() - 0.5);
+  }
+}
 
 function solveBoard(board, idx) {
   if (idx == board.length) {
