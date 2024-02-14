@@ -26,14 +26,82 @@ a {
 }
 
 h1 {
-  line-height: 0.8rem;
   font-size: 2rem;
+  margin-bottom: 0;
 }
 
 h2 {
-  line-height: 0.6rem;
   font-size: 0.8rem;
   text-align: right;
+  margin-top: 0.2rem;
+}
+
+/* animations */
+@keyframes showBoard {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fromLeft {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fromRight {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  @keyframes showBoard {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fromLeft {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+  
+  @keyframes fromRight {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+}
+
+.fromLeft {
+  animation: fromLeft;
+  animation-duration: 3s;
+}
+
+.fromRight {
+  animation: fromRight;
+  animation-duration: 3s;
 }
 
 /* board styling */
@@ -43,6 +111,8 @@ h2 {
   border: 3px solid black;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
+  animation-name: showBoard;
+  animation-duration: 3s;
 }
 
 .square {
