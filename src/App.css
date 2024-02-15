@@ -96,12 +96,12 @@ h2 {
 
 .fromLeft {
   animation: fromLeft;
-  animation-duration: 3s;
+  animation-duration: 2.5s;
 }
 
 .fromRight {
   animation: fromRight;
-  animation-duration: 3s;
+  animation-duration: 2.5s;
 }
 
 /* board styling */
