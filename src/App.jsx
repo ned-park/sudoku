@@ -33,7 +33,24 @@ function App() {
   }
 
   useEffect(() => {
-    runWorker();
+    try {
+      const sudoku = JSON.parse(localStorage.getItem("sudoku"));
+      if (sudoku) {
+        dispatch({
+          type: "SET_EVERYTHING",
+          board: sudoku.board,
+          isMutable: sudoku.isMutable,
+          isLoaded: true,
+          solution: sudoku.solution.map((e, i) => solutionXor(e, i)),
+        });
+      } else {
+        localStorage.clear("sudoku");
+        runWorker();
+      }
+    } catch (e) {
+      console.error(e);
+      runWorker();
+    }
   }, []);
 
   return (
