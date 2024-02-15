@@ -33,6 +33,14 @@ export const reducer = (state = {}, action) => {
         isMutable: action.isMutable,
         solution: action.solution,
         isValid: isValidBoard(action.board),
+        won: action.won,
+      };
+    }
+    case "SET_WON": {
+      return {
+        ...state,
+        isLoaded: false,
+        won: true,
       };
     }
     default:

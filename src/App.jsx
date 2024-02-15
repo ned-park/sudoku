@@ -7,18 +7,29 @@ import { reducer, reducerDefaults } from "./utilities/reducer";
 function App() {
   const [boardStuff, dispatch] = useReducer(reducer, reducerDefaults);
 
+  const isWinningMove = () => {
+    return boardStuff.board.every((n, i) => n == boardStuff.solution[i]);
+  };
+
   useEffect(() => {
     if (boardStuff.isLoaded) {
-      localStorage.setItem(
-        "sudoku",
-        JSON.stringify({
-          board: boardStuff.board,
-          isMutable: boardStuff.isMutable,
-          solution: boardStuff.solution.map((e, i) => solutionXor(e, i)),
-        })
-      );
+      if (isWinningMove()) {
+        localStorage.clear("sudoku");
+        dispatch({ type: "SET_WON", isLoaded: false, won: true });
+        runWorker();
+      } else {
+        localStorage.setItem(
+          "sudoku",
+          JSON.stringify({
+            board: boardStuff.board,
+            isMutable: boardStuff.isMutable,
+            solution: boardStuff.solution.map((e, i) => solutionXor(e, i)),
+          })
+        );
+      }
     }
-  }, [boardStuff.board, boardStuff.isLoaded, boardStuff.isMutable, boardStuff.solution]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [boardStuff.board, boardStuff.isLoaded]);
 
   function runWorker() {
     dispatch({ type: "SET_ERROR", err: "" });
@@ -42,6 +53,7 @@ function App() {
           isMutable: sudoku.isMutable,
           isLoaded: true,
           solution: sudoku.solution.map((e, i) => solutionXor(e, i)),
+          won: false,
         });
       } else {
         localStorage.clear("sudoku");
@@ -56,7 +68,11 @@ function App() {
   return (
     <>
       {!boardStuff.isLoaded ? (
-        <h1>Your puzzle is being generated</h1>
+        !boardStuff.won ? (
+          <h1>Your puzzle is being generated</h1>
+        ) : (
+          <h1>Nice Work!</h1>
+        )
       ) : (
         boardStuff.board && (
           <>
