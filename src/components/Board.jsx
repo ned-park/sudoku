@@ -1,8 +1,8 @@
-export default function Board({ board, setBoard, isMutable, isValid }) {
+export default function Board({ dispatch, board, isValid, isMutable }) {
   function updateBoard(e) {
     let idx = e.target.id.split("-")[1];
     let newValue = e.target.value >= 1 && e.target.value <= 9 ? Number(e.target.value) : 0;
-    setBoard((oldBoard) => oldBoard.map((value, i) => (i == idx ? newValue : value)));
+    dispatch({ type: "SET_BOARD", board: board.map((value, i) => (i == idx ? newValue : value)) });
   }
 
   return (
