@@ -15,7 +15,7 @@ function App() {
     if (boardStuff.isLoaded) {
       if (isWinningMove()) {
         localStorage.clear("sudoku");
-        dispatch({ type: "SET_WON", isLoaded: false, won: true });
+        dispatch({ type: "SET_WON", isLoaded: false, isWon: true });
         runWorker();
       } else {
         localStorage.setItem(
@@ -38,7 +38,7 @@ function App() {
     worker.postMessage({});
     worker.onerror = (err) => console.log(err);
     worker.onmessage = (e) => {
-      dispatch({ type: "SET_EVERYTHING", isLoaded: true, ...e.data });
+      dispatch({ type: "SET_EVERYTHING", isLoaded: true, ...e.data, isWon: false });
       worker.terminate();
     };
   }
@@ -53,7 +53,7 @@ function App() {
           isMutable: sudoku.isMutable,
           isLoaded: true,
           solution: sudoku.solution.map((e, i) => solutionXor(e, i)),
-          won: false,
+          isWon: false,
         });
       } else {
         localStorage.clear("sudoku");
@@ -68,7 +68,7 @@ function App() {
   return (
     <>
       {!boardStuff.isLoaded ? (
-        !boardStuff.won ? (
+        !boardStuff.isWon ? (
           <h1>Your puzzle is being generated</h1>
         ) : (
           <h1>Nice Work!</h1>
