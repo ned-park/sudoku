@@ -7,6 +7,8 @@ export const reducerDefaults = {
   isMutable: [],
   isValue: [],
   isLoaded: false,
+  isWon: false,
+  history: [],
 };
 
 export const reducer = (state = {}, action) => {
@@ -24,23 +26,25 @@ export const reducer = (state = {}, action) => {
         ...state,
         board: action.board,
         isValid: isValidBoard(action.board),
+        history: [...state.history, action.history],
       };
     case "SET_EVERYTHING": {
       return {
         ...state,
         isLoaded: action.isLoaded,
         board: action.board,
+        history: action.history ?? [],
         isMutable: action.isMutable,
         solution: action.solution,
         isValid: isValidBoard(action.board),
-        won: action.won,
+        isWon: action.isWon,
       };
     }
     case "SET_WON": {
       return {
         ...state,
         isLoaded: false,
-        won: true,
+        isWon: true,
       };
     }
     default:

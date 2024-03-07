@@ -91,7 +91,6 @@ h2 {
       transform: translateX(0%);
     }
   }
-
 }
 
 .fromLeft {
@@ -121,6 +120,20 @@ h2 {
   font-size: medium;
   border: 1px solid black;
   text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .square {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .square {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 .wrong {
