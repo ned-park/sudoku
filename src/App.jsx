@@ -80,15 +80,24 @@ function App() {
         dispatch({ type: "UNDO" });
       }
     };
+    // const onTouchEnd = (e) => {
+    //   setDebug(e.details);
+    //   e.preventDefault();
+    //   dispatch({ type: "UNDO" });
+    // };
+
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("keyup", onKeyUp);
+    // document.addEventListener("touchend", onTouchEnd);
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("keyup", onKeyUp);
+      // document.addEventListener("touchend", onTouchEnd);
     };
   }, []);
 
+  console.log(boardStuff.history);
   return (
     <>
       <h3>{debug}</h3>

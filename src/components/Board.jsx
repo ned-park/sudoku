@@ -1,7 +1,11 @@
 export default function Board({ dispatch, board, isValid, isMutable }) {
   function updateBoard(e) {
     let idx = e.target.id.split("-")[1];
-    let newValue = e.target.value >= 1 && e.target.value <= 9 ? Number(e.target.value) : 0;
+    // if (e.target.value === "#") {
+    //   dispatch({ type: "UNDO" });
+    //   return;
+    // }
+    let newValue = e.target.value >= 1 && e.target.value <= 9 ? Number(e.target.value) : Number(e.target.value) % 10;
     if (newValue != board[idx]) {
       dispatch({
         type: "SET_BOARD",
