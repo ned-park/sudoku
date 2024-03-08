@@ -24,12 +24,13 @@ function App() {
             board: boardStuff.board,
             isMutable: boardStuff.isMutable,
             solution: boardStuff.solution.map((e, i) => solutionXor(e, i)),
+            history: boardStuff.history,
           })
         );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boardStuff.board, boardStuff.isLoaded]);
+  }, [boardStuff.board, boardStuff.isLoaded, boardStuff.history]);
 
   function runWorker() {
     dispatch({ type: "SET_ERROR", err: "" });
@@ -38,7 +39,7 @@ function App() {
     worker.postMessage({});
     worker.onerror = (err) => console.log(err);
     worker.onmessage = (e) => {
-      dispatch({ type: "SET_EVERYTHING", isLoaded: true, ...e.data, isWon: false });
+      dispatch({ type: "SET_EVERYTHING", isLoaded: true, ...e.data, isWon: false, history: [] });
       worker.terminate();
     };
   }
@@ -54,6 +55,7 @@ function App() {
           isLoaded: true,
           solution: sudoku.solution.map((e, i) => solutionXor(e, i)),
           isWon: false,
+          history: sudoku.history,
         });
       } else {
         localStorage.clear("sudoku");
@@ -63,6 +65,24 @@ function App() {
       console.error(e);
       runWorker();
     }
+
+    const onKeyDown = (e) => {
+      if ((e.ctrlKey && e.key === "z") || e.key === "#") {
+        e.preventDefault();
+      }
+    };
+    const onKeyUp = (e) => {
+      if (e.key === "z" || e.key === "#") {
+        dispatch({ type: "UNDO" });
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keyup", onKeyUp);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("keyup", onKeyUp);
+    };
   }, []);
 
   return (
