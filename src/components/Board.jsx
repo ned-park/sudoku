@@ -21,6 +21,7 @@ export default function Board({ dispatch, board, isValid, isMutable }) {
           disabled={!isMutable[m]}
           value={sq != 0 ? sq : ""}
           onChange={(e) => updateBoard(e)}
+          type="tel"
         />
       ))}
     </div>
