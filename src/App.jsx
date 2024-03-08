@@ -67,12 +67,12 @@ function App() {
     }
 
     const onKeyDown = (e) => {
-      if (e.ctrlKey && e.key === "z") {
+      if ((e.ctrlKey && e.key === "z") || e.key === "#") {
         e.preventDefault();
       }
     };
     const onKeyUp = (e) => {
-      if (e.key === "z") {
+      if (e.key === "z" || e.key === "#") {
         dispatch({ type: "UNDO" });
       }
     };
