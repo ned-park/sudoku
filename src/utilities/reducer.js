@@ -33,7 +33,7 @@ export const reducer = (state = {}, action) => {
         ...state,
         isLoaded: action.isLoaded,
         board: action.board,
-        history: action.history ?? [],
+        history: action.history,
         isMutable: action.isMutable,
         solution: action.solution,
         isValid: isValidBoard(action.board),
@@ -47,6 +47,18 @@ export const reducer = (state = {}, action) => {
         isWon: true,
       };
     }
+    case "UNDO": {
+      if (state.history.length === 0) return { ...state };
+      const { idx, oldValue } = state.history[state.history.length - 1];
+      const newBoard = state.board.map((value, i) => (i == idx ? oldValue : value));
+      return {
+        ...state,
+        history: [...state.history.slice(0, state.history.length - 1)],
+        isValid: isValidBoard(newBoard),
+        board: newBoard,
+      };
+    }
+
     default:
       return state;
   }

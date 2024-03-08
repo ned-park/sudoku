@@ -7,6 +7,7 @@ onmessage = () => {
     solution,
     board,
     isMutable,
+    history: [],
   });
 };
 
