@@ -76,6 +76,7 @@ function App() {
         dispatch({ type: "UNDO" });
       }
     };
+
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("keyup", onKeyUp);
 
@@ -85,6 +86,7 @@ function App() {
     };
   }, []);
 
+  console.log(boardStuff.history);
   return (
     <>
       {!boardStuff.isLoaded ? (
