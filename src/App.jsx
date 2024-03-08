@@ -67,6 +67,7 @@ function App() {
     }
 
     const onKeyDown = (e) => {
+      console.log(e.key);
       if ((e.ctrlKey && e.key === "z") || e.key === "#") {
         e.preventDefault();
       }
