@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import "./App.css";
 import Board from "./components/Board";
 import { solutionXor } from "./utilities/board";
@@ -6,8 +6,6 @@ import { reducer, reducerDefaults } from "./utilities/reducer";
 
 function App() {
   const [boardStuff, dispatch] = useReducer(reducer, reducerDefaults);
-
-  const [debug, setDebug] = useState("");
 
   const isWinningMove = () => {
     return boardStuff.board.every((n, i) => n == boardStuff.solution[i]);
@@ -69,38 +67,28 @@ function App() {
     }
 
     const onKeyDown = (e) => {
-      setDebug(e.key);
       if ((e.ctrlKey && e.key === "z") || e.key === "#") {
         e.preventDefault();
       }
     };
     const onKeyUp = (e) => {
       if (e.key === "z" || e.key === "#") {
-        setDebug(e.key);
         dispatch({ type: "UNDO" });
       }
     };
-    // const onTouchEnd = (e) => {
-    //   setDebug(e.details);
-    //   e.preventDefault();
-    //   dispatch({ type: "UNDO" });
-    // };
 
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("keyup", onKeyUp);
-    // document.addEventListener("touchend", onTouchEnd);
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("keyup", onKeyUp);
-      // document.addEventListener("touchend", onTouchEnd);
     };
   }, []);
 
   console.log(boardStuff.history);
   return (
     <>
-      <h3>{debug}</h3>
       {!boardStuff.isLoaded ? (
         !boardStuff.isWon ? (
           <h1>Your puzzle is being generated</h1>
