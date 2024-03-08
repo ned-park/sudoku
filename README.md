@@ -3,7 +3,9 @@
 ## Description
 
 A visually minimalist sudoku app that features on demand puzzle generation and
-automatic saving and retrieving of games in progress to and from localStorage.
+automatic saving and retrieving of games in progress to and from localStorage.  
+Additionally, it supports multiple undo using CTRL+z on a keyboard or # from
+mobile.
 
 See it live [https://sudoku-by-ned.netlify.app](https://sudoku-by-ned.netlify.app).
 

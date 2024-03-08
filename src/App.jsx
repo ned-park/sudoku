@@ -86,7 +86,6 @@ function App() {
     };
   }, []);
 
-  console.log(boardStuff.history);
   return (
     <>
       {!boardStuff.isLoaded ? (
