@@ -1,7 +1,8 @@
-export default function Board({ dispatch, board, isValid, isMutable }) {
+export default function Board({ dispatch, board, isValid, isMutable, activeIdx }) {
   function updateBoard(e) {
     let idx = e.target.id.split("-")[1];
-    let newValue = e.target.value >= 1 && e.target.value <= 9 ? Number(e.target.value) : Number(e.target.value) % 10;
+    let newValue =
+      e.target.value >= 1 && e.target.value <= 9 ? Number(e.target.value) : Number(e.target.value) % 10 || 0;
     if (newValue != board[idx]) {
       dispatch({
         type: "SET_BOARD",
@@ -24,6 +25,7 @@ export default function Board({ dispatch, board, isValid, isMutable }) {
           value={sq != 0 ? sq : ""}
           onChange={(e) => updateBoard(e)}
           type="tel"
+          autoFocus={m === activeIdx}
         />
       ))}
     </div>
