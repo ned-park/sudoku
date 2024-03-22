@@ -1,21 +1,17 @@
 import Form from "./Form";
-import { __SITE_PREFIX__ } from "../config";
 import { transformFormDataForSubmission } from "../utilities/transformFormDataForSubmission";
+import { useAuth } from "../hooks/useAuth";
 
 const fields = [
-  { name: "username", type: "text", val: "" },
-  { name: "password", type: "password", val: "" },
+  { name: "username", type: "text", value: "" },
+  { name: "password", type: "password", value: "" },
 ];
 
 function Login() {
+  const { login } = useAuth();
   const onSubmit = async (formData) => {
     const payload = transformFormDataForSubmission(formData);
-    const res = await fetch(`${__SITE_PREFIX__}/api/users/login`, {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    console.log(res); // set Auth Context
+    await login(payload);
   };
 
   return <Form fields={fields} onSubmit={onSubmit} />;

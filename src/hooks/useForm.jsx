@@ -5,7 +5,9 @@ export default function useForm({ initialState = {}, onSubmit }) {
 
   const handleChange = (e) => {
     setFormData((oldFormData) =>
-      oldFormData.map((oldVal) => (oldVal.name == e.target.name ? { ...oldVal, value: e.target.value } : { ...oldVal }))
+      oldFormData.map((oldValue) =>
+        oldValue.name == e.target.name ? { ...oldValue, value: e.target.value } : { ...oldValue }
+      )
     );
   };
 
