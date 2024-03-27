@@ -19,6 +19,8 @@ export const onKeyDown = (e, setFunc) => {
 export const onKeyUp = (e, dispatch) => {
   if (e.key === "z" || e.key === "#") {
     dispatch({ type: "UNDO" });
+  } else if (e.key === "y" || e.key === "*") {
+    dispatch({ type: "REDO" });
   }
 };
 

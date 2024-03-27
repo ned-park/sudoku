@@ -2,13 +2,14 @@ import { isValidBoard } from "./board";
 
 export const reducerDefaults = {
   err: "",
-  board: [],
+  board: new Array(80).fill(0),
   solution: [],
   isMutable: [],
   isValue: [],
   isLoaded: false,
   isWon: false,
   history: [],
+  future: [],
 };
 
 export const reducer = (state = {}, action) => {
@@ -34,6 +35,7 @@ export const reducer = (state = {}, action) => {
         isLoaded: action.isLoaded,
         board: action.board,
         history: action.history,
+        future: action.future ?? [],
         isMutable: action.isMutable,
         solution: action.solution,
         isValid: isValidBoard(action.board),
@@ -54,6 +56,19 @@ export const reducer = (state = {}, action) => {
       return {
         ...state,
         history: [...state.history.slice(0, state.history.length - 1)],
+        future: [...state.future, state.history[state.history.length - 1]],
+        isValid: isValidBoard(newBoard),
+        board: newBoard,
+      };
+    }
+    case "REDO": {
+      if (state.future.length === 0) return { ...state };
+      const { idx, newValue } = state.future[state.future.length - 1];
+      const newBoard = state.board.map((value, i) => (i == idx ? newValue : value));
+      return {
+        ...state,
+        history: [...state.history, state.future[state.future.length - 1]],
+        future: [...state.future.slice(0, state.future.length - 1)],
         isValid: isValidBoard(newBoard),
         board: newBoard,
       };
