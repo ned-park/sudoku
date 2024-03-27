@@ -5,7 +5,8 @@
 A visually minimalist sudoku app that features on demand puzzle generation and
 automatic saving and retrieving of games in progress to and from localStorage.  
 Additionally, it supports multiple undo using CTRL+z on a keyboard or # from
-mobile.
+mobile and multiple redo using CTRL+y on a keyboard or \* on mobile. It also
+supports puzzle navigation using h (left), j (down), k (up), and l (right).
 
 See it live [https://sudoku-by-ned.netlify.app](https://sudoku-by-ned.netlify.app).
 
