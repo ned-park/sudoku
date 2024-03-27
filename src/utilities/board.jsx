@@ -1,3 +1,19 @@
+export function runWorker(dispatch) {
+  dispatch({ type: "SET_ERROR", err: "" });
+  const worker = new window.Worker("./board.js");
+
+  worker.postMessage({});
+  worker.onerror = (err) => console.error(err);
+  worker.onmessage = (e) => {
+    dispatch({ type: "SET_EVERYTHING", isLoaded: true, ...e.data, isWon: false, history: [] });
+    worker.terminate();
+  };
+}
+
+export function isWinningMove(board, solution) {
+  return board.every((n, i) => n == solution[i]);
+}
+
 export function isValidBoard(board) {
   if (!board) return;
   const sideLength = Math.sqrt(board.length);
