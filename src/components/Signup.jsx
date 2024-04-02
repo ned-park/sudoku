@@ -23,7 +23,7 @@ export function Signup() {
   };
 
   return (
-    <section className="container center">
+    <section className="wrapper">
       <Form fields={fields} onSubmit={onSubmit} submitText="Signup" />
     </section>
   );

@@ -16,7 +16,7 @@ export function Login({ setShowLogin }) {
   };
 
   return (
-    <section className="container center">
+    <section className="wrapper">
       <Form fields={fields} onSubmit={onSubmit} submitText="Login" />
     </section>
   );
