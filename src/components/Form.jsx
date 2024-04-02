@@ -7,6 +7,7 @@ function Form(props) {
       name: field.name,
       type: field.type,
       value: field.value,
+      placeholder: field.placeholder ?? field.name,
     })),
     onSubmit: onSubmit,
   });
@@ -21,7 +22,7 @@ function Form(props) {
             value={field.value}
             onChange={(e) => handleChange(e)}
             name={field.name}
-            placeholder={field.name[0].toUpperCase() + field.name.slice(1)}
+            placeholder={field.placeholder[0].toUpperCase() + field.placeholder.slice(1)}
           />
         ))}
         <input type="submit" onClick={(e) => handleSubmit(e)} value={submitText} />
