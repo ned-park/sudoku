@@ -11,7 +11,8 @@ export function Login({ setShowLogin }) {
   const { login } = useAuth();
   const onSubmit = async (formData) => {
     const payload = transformFormDataForSubmission(formData);
-    login(payload, () => setShowLogin(false));
+    login(payload);
+    setShowLogin(false);
   };
 
   return (
