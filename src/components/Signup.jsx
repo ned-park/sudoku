@@ -11,7 +11,7 @@ const submissionConstraints = (payload) => {
   return payload.password === payload.confirmpassword;
 };
 
-function Signup() {
+export function Signup() {
   const onSubmit = async (formData) => {
     const payload = transformFormDataForSubmission(formData, submissionConstraints);
     const res = await fetch(`${__SITE_PREFIX__}/api/users/signup`, {
@@ -22,7 +22,9 @@ function Signup() {
     console.log(res); // set Auth Context
   };
 
-  return <Form fields={fields} onSubmit={onSubmit} />;
+  return (
+    <section className="container center">
+      <Form fields={fields} onSubmit={onSubmit} submitText="Signup" />
+    </section>
+  );
 }
-
-export default Signup;

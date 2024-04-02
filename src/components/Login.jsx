@@ -7,14 +7,16 @@ const fields = [
   { name: "password", type: "password", value: "" },
 ];
 
-function Login() {
+export function Login({ setShowLogin }) {
   const { login } = useAuth();
   const onSubmit = async (formData) => {
     const payload = transformFormDataForSubmission(formData);
-    await login(payload);
+    login(payload, () => setShowLogin(false));
   };
 
-  return <Form fields={fields} onSubmit={onSubmit} />;
+  return (
+    <section className="container center">
+      <Form fields={fields} onSubmit={onSubmit} submitText="Login" />
+    </section>
+  );
 }
-
-export default Login;
