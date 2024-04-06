@@ -1,7 +1,7 @@
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Logout } from "./Logout";
 
-export function Header({ showLogin, setShowLogin, showSignup, setShowSignup }) {
+export function Header({ setShowLogin, setShowSignup, setShowScores }) {
   const { user } = useAuthContext();
   return (
     <header className="header">
@@ -12,9 +12,21 @@ export function Header({ showLogin, setShowLogin, showSignup, setShowSignup }) {
               onClick={() => {
                 setShowLogin(false);
                 setShowSignup(false);
+                setShowScores(false);
               }}
             >
               Home
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setShowScores(true);
+                setShowLogin(false);
+                setShowSignup(false);
+              }}
+            >
+              Scores
             </button>
           </li>
           {!user ? (
@@ -26,7 +38,7 @@ export function Header({ showLogin, setShowLogin, showSignup, setShowSignup }) {
                     setShowSignup(false);
                   }}
                 >
-                  {!showLogin ? "Login" : "Back"}
+                  Login
                 </button>
               </li>
               <li>
@@ -36,7 +48,7 @@ export function Header({ showLogin, setShowLogin, showSignup, setShowSignup }) {
                     setShowSignup((showSignup) => !showSignup);
                   }}
                 >
-                  {!showSignup ? "Signup" : "Back"}
+                  Signup
                 </button>
               </li>
             </>

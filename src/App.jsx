@@ -7,15 +7,14 @@ import { runWorker } from "./utilities/board";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
 import { Header } from "./components/Header";
-import { useAuthContext } from "./hooks/useAuthContext";
+import Scores from "./components/Scores";
 
 function App() {
   const [boardStuff, dispatch] = useReducer(reducer, reducerDefaults);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-  const { user } = useAuthContext();
+  const [showScores, setShowScores] = useState(false);
 
-  console.log(user);
   useEffect(() => {
     try {
       const sudoku = JSON.parse(localStorage.getItem("sudoku"));
@@ -28,6 +27,7 @@ function App() {
           solution: sudoku.solution.map((e, i) => solutionXor(e, i)),
           isWon: false,
           history: sudoku.history,
+          startTime: sudoku.startTime,
         });
       } else {
         localStorage.clear("sudoku");
@@ -62,11 +62,13 @@ function App() {
     content = <Login setShowLogin={setShowLogin} />;
   } else if (showSignup) {
     content = <Signup setShowSignup={setShowSignup} />;
+  } else if (showScores) {
+    content = <Scores />;
   }
 
   return (
     <>
-      <Header setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
+      <Header setShowLogin={setShowLogin} setShowSignup={setShowSignup} setShowScores={setShowScores} />
       {content}
     </>
   );
