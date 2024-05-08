@@ -30,7 +30,7 @@ export function BoardWrapper({ boardStuff, dispatch }) {
   useEffect(() => {
     if (!boardStuff.isLoaded) return;
     if (isWinningMove(boardStuff.board, boardStuff.solution)) {
-      !sendHighScore(boardStuff.startTime, user);
+      sendHighScore(boardStuff.startTime, user);
       removeItem("sudoku");
       dispatch({ type: "SET_WON", isLoaded: false, isWon: true });
       runWorker(dispatch);

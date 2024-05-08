@@ -11,7 +11,6 @@ const fields = [
 ];
 
 const submissionConstraints = (payload) => {
-  console.log(payload);
   return payload.password === payload.confirmpassword;
 };
 
