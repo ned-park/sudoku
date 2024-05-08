@@ -22,6 +22,9 @@ a {
 }
 
 .header {
+  position: absolute;
+  top: 0;
+  right: 0;
   justify-self: flex-start;
   width: 100%;
   display: flex;
@@ -202,4 +205,31 @@ button {
   padding: 0.25rem 1rem;
   cursor: pointer;
   font-weight: bold;
+}
+
+.hamburger {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: column nowrap;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.burger {
+  width: 2rem;
+  height: 0.25rem;
+  border-radius: 10px;
+  background: black;
+  transform-origin: 1px;
+  transition: all 0.25s linear;
+}
+
+.menuwrapper {
+  display: flex;
+  width: 4rem;
+  height: 4rem;
+  justify-content: center;
+  align-items: center;
 }
