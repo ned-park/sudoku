@@ -12,11 +12,15 @@ export function useAuth() {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(payload),
     });
-    const data = await res.json();
-    const userPayload = { token: data.token, username: data.user.username, id: data.user.id };
-    setItem("user", JSON.stringify(userPayload));
-    dispatch({ action: "LOGIN", payload: userPayload });
-    return;
+    if (res.ok) {
+      const data = await res.json();
+      const userPayload = { token: data.token, username: data.user.username, id: data.user.id };
+      setItem("user", JSON.stringify(userPayload));
+      dispatch({ type: "LOGIN", payload: userPayload });
+      return userPayload;
+    } else {
+      throw new Error("Something went wrong please try again");
+    }
   };
 
   const logout = async () => {

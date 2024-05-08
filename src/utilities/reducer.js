@@ -10,6 +10,7 @@ export const reducerDefaults = {
   isWon: false,
   history: [],
   future: [],
+  startTime: Date.now(),
 };
 
 export const reducer = (state = {}, action) => {
@@ -40,6 +41,7 @@ export const reducer = (state = {}, action) => {
         solution: action.solution,
         isValid: isValidBoard(action.board),
         isWon: action.isWon,
+        startTime: Date.now(),
       };
     }
     case "SET_WON": {
