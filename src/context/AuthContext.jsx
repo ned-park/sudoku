@@ -6,7 +6,6 @@ export const AuthContext = createContext();
 function authReducer(state = { user: null }, action) {
   switch (action.type) {
     case "LOGIN":
-      console.log("LOGIN hit");
       return { user: action.payload };
     case "LOGOUT":
       return { user: null };
