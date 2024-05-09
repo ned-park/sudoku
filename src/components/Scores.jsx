@@ -7,6 +7,7 @@ export default function Scores() {
   const [scores, setScores] = useState({ scores: [], userScores: [] });
 
   useEffect(() => {
+    let attemptsRemaining = 3;
     const getHighScores = async () => {
       const headers = { "Content-type": "application/json" };
       if (user) headers["Authorization"] = `Bearer ${user.token}`;
@@ -17,13 +18,16 @@ export default function Scores() {
         });
         if (res.ok) {
           const data = await res.json();
-          console.log({ data });
           setScores(data);
         } else {
           throw new Error("Something went wrong please try again");
         }
       } catch (err) {
         console.error(err);
+        if (attemptsRemaining > 0) {
+          attemptsRemaining--;
+          getHighScores();
+        }
       }
     };
 
@@ -32,29 +36,31 @@ export default function Scores() {
 
   return (
     <>
-      <h1>High Scores</h1>
-      <ol>
-        {scores &&
-          scores.scores &&
-          scores.scores.map((score, idx) => (
-            <li key={`${score}${idx}`}>
-              {score.username} {score.score}
-            </li>
-          ))}
-      </ol>
-
-      {scores && scores.userScores && (
-        <>
-          <h1>Your high scores</h1>
-          <ol>
-            {scores.userScores.map((score, idx) => (
+      <section className="margin-top-10rem">
+        <h1>High Scores</h1>
+        <ol>
+          {scores &&
+            scores.scores &&
+            scores.scores.map((score, idx) => (
               <li key={`${score}${idx}`}>
                 {score.username} {score.score}
               </li>
             ))}
-          </ol>
-        </>
-      )}
+        </ol>
+
+        {user && scores && scores.userScores && (
+          <>
+            <h1>Your Scores</h1>
+            <ol>
+              {scores.userScores.map((score, idx) => (
+                <li key={`${score}${idx}`}>
+                  {score.username} {score.score}
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
+      </section>
     </>
   );
 }
