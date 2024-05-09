@@ -39,7 +39,6 @@ export function Header({ setShowLogin, setShowSignup, setShowScores }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    console.log("toggle");
     setMenuOpen((open) => !open);
   };
 
@@ -54,6 +53,7 @@ export function Header({ setShowLogin, setShowSignup, setShowScores }) {
                   setShowLogin(false);
                   setShowSignup(false);
                   setShowScores(false);
+                  setMenuOpen(false);
                 }}
               >
                 Home
@@ -65,6 +65,7 @@ export function Header({ setShowLogin, setShowSignup, setShowScores }) {
                   setShowScores(true);
                   setShowLogin(false);
                   setShowSignup(false);
+                  setMenuOpen(false);
                 }}
               >
                 Scores
@@ -77,6 +78,7 @@ export function Header({ setShowLogin, setShowSignup, setShowScores }) {
                     onClick={() => {
                       setShowLogin((showLogin) => !showLogin);
                       setShowSignup(false);
+                      setMenuOpen(false);
                     }}
                   >
                     Login
@@ -87,6 +89,7 @@ export function Header({ setShowLogin, setShowSignup, setShowScores }) {
                     onClick={() => {
                       setShowLogin(false);
                       setShowSignup((showSignup) => !showSignup);
+                      setMenuOpen(false);
                     }}
                   >
                     Signup
