@@ -34,6 +34,21 @@ export default function Scores() {
     getHighScores();
   }, [user]);
 
+  const humanReadableScore = (t) => {
+    let out = "";
+    let sec = t % 60;
+    t -= sec;
+    t /= 60;
+    let min = t % 60;
+    t -= min;
+    t /= 60;
+    let hr = t;
+    if (hr > 0) out += `${hr}h `;
+    if (min > 0) out += `${min}m `;
+    out += `${sec.toFixed(3)}s`;
+    return out;
+  };
+
   return (
     <>
       <section className="margin-top-10rem">
@@ -42,8 +57,9 @@ export default function Scores() {
           {scores &&
             scores.scores &&
             scores.scores.map((score, idx) => (
-              <li key={`${score}${idx}`}>
-                {score.username} {score.score}
+              <li key={`${score}${idx}`} className="highscore">
+                <span>{`${score.username}`}</span>
+                <span>{`${humanReadableScore(score.score)}`}</span>
               </li>
             ))}
         </ol>
@@ -53,8 +69,9 @@ export default function Scores() {
             <h1>Your Scores</h1>
             <ol>
               {scores.userScores.map((score, idx) => (
-                <li key={`${score}${idx}`}>
-                  {score.username} {score.score}
+                <li key={`${score}${idx}`} className="highscore">
+                  <span>{`${score.username}`}</span>
+                  <span>{`${humanReadableScore(score.score)}`}</span>
                 </li>
               ))}
             </ol>
